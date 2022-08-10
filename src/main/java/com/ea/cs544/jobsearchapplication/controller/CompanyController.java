@@ -42,4 +42,19 @@ public class CompanyController {
         companyService.deleteById(id);
         return new RestResponse().successModel(company);
     }
+
+    @GetMapping("/state")
+    public ResponseEntity<?> findAllCompanyByState(@RequestParam String state) {
+        return new RestResponse().successModel(companyService.findAllByState(state));
+    }
+
+    @GetMapping("/city")
+    public ResponseEntity<?> findAllCompanyByCity(@RequestParam String city) {
+        return new RestResponse().successModel(companyService.findAllByCity(city));
+    }
+
+    @GetMapping("/recruiter")
+    public ResponseEntity<?> findAllRecruiterBySalaryGreaterThan(@RequestParam double salary) {
+        return new RestResponse().successModel(companyService.findRecruiterBySalary(salary));
+    }
 }

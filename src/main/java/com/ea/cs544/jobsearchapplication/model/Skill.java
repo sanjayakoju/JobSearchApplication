@@ -26,6 +26,14 @@ public class Skill implements Serializable {
         this.description = description;
     }
 
+    public Skill(int id, String name, int experience, String language, String description) {
+        this.id = id;
+        this.name = name;
+        this.experience = experience;
+        this.language = language;
+        this.description = description;
+    }
+
     public int getId() {
         return id;
     }

@@ -2,12 +2,15 @@ package com.ea.cs544.jobsearchapplication.repository;
 
 import com.ea.cs544.jobsearchapplication.model.Skill;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface SkillRepository extends JpaRepository<Skill, Integer> {
+import java.util.List;
 
-    @Query(value = "DELETE from Skill where job_id = ?1", nativeQuery = true)
-    void deleteAllByJobId(int id);
+@Repository
+public interface SkillRepository extends JpaRepository<Skill, Integer>, JpaSpecificationExecutor<Skill> {
+
+    List<Skill> findAllByExperience(int experience);
+
 }

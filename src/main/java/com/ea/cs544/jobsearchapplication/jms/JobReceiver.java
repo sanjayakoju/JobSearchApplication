@@ -11,4 +11,9 @@ public class JobReceiver {
     public void receive(Job job) {
         System.out.println("Receiver Job > "+job);
     }
+
+    @JmsListener(destination = "${spring.jms.cs544Queue}")
+    public void receive(String message) {
+        System.out.println("Receiver : "+message);
+    }
 }

@@ -27,16 +27,19 @@ public class JobController {
 
     @GetMapping
     public ResponseEntity<?> getAll() {
+        jobSender.send("Job Available List");
         return new RestResponse().successModel(jobService.findAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable int id) {
+        jobSender.send("Job Message send");
         return new RestResponse().successModel(jobService.findOne(id));
     }
 
     @PutMapping
     public ResponseEntity<?> update(@RequestBody Job job) {
+        jobSender.send("Job update for Id : "+job.getId());
         return new RestResponse().successModel(jobService.save(job));
     }
 
@@ -44,6 +47,17 @@ public class JobController {
     public ResponseEntity<?> deleteById(@PathVariable int id) {
         Optional<Job> job = jobService.findOne(id);
         jobService.deleteById(id);
+        jobSender.send("Job delete Message Send for id : "+id);
         return new RestResponse().successModel(job);
+    }
+
+    @GetMapping("/jobs")
+    public ResponseEntity<?> getJobByStateAndSalaryGreaterThan(@RequestParam String state, @RequestParam double salary) {
+        return new RestResponse().successModel(jobService.getJobWithSalaryGreaterThanWithinParticularState(salary, state));
+    }
+
+    @GetMapping("/interview")
+    public ResponseEntity<?> getJobByInterview(@RequestParam int numberOfInterview) {
+        return new RestResponse().successModel(jobService.findAllByInterviews(numberOfInterview));
     }
 }

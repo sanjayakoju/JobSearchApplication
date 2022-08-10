@@ -1,8 +1,10 @@
 package com.ea.cs544.jobsearchapplication.service;
 
 import com.ea.cs544.jobsearchapplication.core.BaseService;
+import com.ea.cs544.jobsearchapplication.exception.ExceptionHandler;
 import com.ea.cs544.jobsearchapplication.model.Skill;
 import com.ea.cs544.jobsearchapplication.repository.SkillRepository;
+import com.ea.cs544.jobsearchapplication.repository.SkillSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,12 @@ public class SkillService implements BaseService<Skill, Integer> {
 
     @Override
     public Optional<Skill> findOne(Integer integer) {
-        return skillRepository.findById(integer);
+        if (skillRepository.findById(integer).isPresent()) {
+            return skillRepository.findById(integer);
+        } else {
+            ExceptionHandler.handleException("Skill not found for Id : " + integer);
+        }
+        return null;
     }
 
     @Override
@@ -31,12 +38,19 @@ public class SkillService implements BaseService<Skill, Integer> {
     }
 
     @Override
-    public void delete(Skill entity) {
-        skillRepository.delete(entity);
+    public void deleteById(Integer integer) {
+        try {
+            skillRepository.deleteById(integer);
+        } catch (Exception e) {
+            ExceptionHandler.handleException("Skill not found for Id : " + integer);
+        }
     }
 
-    @Override
-    public void deleteById(Integer integer) {
-        skillRepository.deleteById(integer);
+    public List<Skill> findAllByExperience(Integer experience) {
+        return skillRepository.findAllByExperience(experience);
+    }
+
+    public List<Skill> findAllSkillMoreThanEqualExperience(int experience) {
+        return skillRepository.findAll(SkillSpecification.hasExperienceMoreThanEqual(experience));
     }
 }

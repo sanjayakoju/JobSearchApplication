@@ -37,9 +37,14 @@ public class SkillController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable int id) {
+    public ResponseEntity<?> deleteById(@PathVariable int id) {
         Optional<Skill> skill = skillService.findOne(id);
         skillService.deleteById(id);
         return new RestResponse().successModel(skill);
+    }
+
+    @GetMapping("/experience")
+    public ResponseEntity<?> getSkillByExperience(@RequestParam int experience) {
+        return new RestResponse().successModel(skillService.findAllSkillMoreThanEqualExperience(experience));
     }
 }

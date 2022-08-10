@@ -1,8 +1,9 @@
 package com.ea.cs544.jobsearchapplication.service;
 
 import com.ea.cs544.jobsearchapplication.core.BaseService;
-import com.ea.cs544.jobsearchapplication.exception.ResourceNotFoundException;
+import com.ea.cs544.jobsearchapplication.exception.ExceptionHandler;
 import com.ea.cs544.jobsearchapplication.model.Company;
+import com.ea.cs544.jobsearchapplication.model.Recruiter;
 import com.ea.cs544.jobsearchapplication.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,16 +19,17 @@ public class CompanyService implements BaseService<Company, Integer> {
 
     @Override
     public Company save(Company company) {
-        if (company != null) {
-            return companyRepository.save(company);
-        } else {
-            throw new ResourceNotFoundException("Company Data Error");
-        }
+        return companyRepository.save(company);
     }
 
     @Override
     public Optional<Company> findOne(Integer integer) {
-        return companyRepository.findById(integer);
+        if (companyRepository.findById(integer).isPresent()) {
+            return companyRepository.findById(integer);
+        } else {
+            ExceptionHandler.handleException("Company not found for Id : " + integer);
+        }
+        return null;
     }
 
     @Override
@@ -36,12 +38,38 @@ public class CompanyService implements BaseService<Company, Integer> {
     }
 
     @Override
-    public void delete(Company entity) {
-        companyRepository.delete(entity);
+    public void deleteById(Integer integer) {
+        try {
+            companyRepository.deleteById(integer);
+        } catch (Exception exception) {
+            ExceptionHandler.handleException("Company not found for Id : " + integer);
+        }
     }
 
-    @Override
-    public void deleteById(Integer integer) {
-        companyRepository.deleteById(integer);
+    public List<Company> findAllByState(String state) {
+        try {
+            return companyRepository.findCompanyByState(state);
+        } catch (Exception e) {
+            ExceptionHandler.handleException("Company not found for state : "+state);
+        }
+        return null;
+    }
+
+    public List<Company> findAllByCity(String city) {
+        try {
+            return companyRepository.findCompanyByCity(city);
+        } catch (Exception e) {
+            ExceptionHandler.handleException("Company not found for city : "+city);
+        }
+        return null;
+    }
+
+    public List<Recruiter> findRecruiterBySalary(double salary) {
+        try {
+            return companyRepository.findRecruiterBySalary(salary);
+        } catch (Exception e) {
+            ExceptionHandler.handleException("Recruiter not found who pay salary more than : "+salary);
+        }
+        return null;
     }
 }

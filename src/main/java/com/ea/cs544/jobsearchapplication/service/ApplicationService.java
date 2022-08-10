@@ -1,11 +1,13 @@
 package com.ea.cs544.jobsearchapplication.service;
 
 import com.ea.cs544.jobsearchapplication.core.BaseService;
+import com.ea.cs544.jobsearchapplication.exception.ExceptionHandler;
 import com.ea.cs544.jobsearchapplication.model.Application;
 import com.ea.cs544.jobsearchapplication.repository.ApplicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +24,12 @@ public class ApplicationService implements BaseService<Application, Integer> {
 
     @Override
     public Optional<Application> findOne(Integer integer) {
-        return applicationRepository.findById(integer);
+        if (applicationRepository.findById(integer).isPresent()) {
+            return applicationRepository.findById(integer);
+        } else {
+            ExceptionHandler.handleException("Application not found for Id:" +integer);
+        }
+        return null;
     }
 
     @Override
@@ -31,12 +38,11 @@ public class ApplicationService implements BaseService<Application, Integer> {
     }
 
     @Override
-    public void delete(Application entity) {
-        applicationRepository.delete(entity);
-    }
-
-    @Override
     public void deleteById(Integer integer) {
-        applicationRepository.deleteById(integer);
+        try {
+            applicationRepository.deleteById(integer);
+        } catch (EntityNotFoundException ex) {
+            ExceptionHandler.handleException("Application not found for Id: "+integer);
+        }
     }
 }

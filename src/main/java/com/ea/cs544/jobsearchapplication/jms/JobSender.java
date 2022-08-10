@@ -17,7 +17,7 @@ public class JobSender {
     @Autowired
     private JmsTemplate jmsTemplate;
 
-    @Value(value = "cs544Queue}")
+    @Value(value = "${spring.jms.cs544Queue}")
     private String queueName;
 
     public void send(Job job) {
@@ -28,6 +28,10 @@ public class JobSender {
             }
         };
         jmsTemplate.send(queueName, messageCreator);
+    }
+
+    public void send(String message) {
+        jmsTemplate.convertAndSend(queueName, message);
     }
 
 }

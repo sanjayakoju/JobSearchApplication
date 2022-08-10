@@ -11,8 +11,6 @@ public interface BaseService<T, I> {
 
     List<T> findAll();
 
-    void delete(T entity);
-
     void deleteById(I i);
 
 }

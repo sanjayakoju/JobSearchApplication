@@ -1,6 +1,7 @@
 package com.ea.cs544.jobsearchapplication.service;
 
 import com.ea.cs544.jobsearchapplication.core.BaseService;
+import com.ea.cs544.jobsearchapplication.exception.ExceptionHandler;
 import com.ea.cs544.jobsearchapplication.model.Interview;
 import com.ea.cs544.jobsearchapplication.repository.InterviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,12 @@ public class InterviewService implements BaseService<Interview, Integer> {
 
     @Override
     public Optional<Interview> findOne(Integer integer) {
-        return interviewRepository.findById(integer);
+        if (interviewRepository.findById(integer).isPresent()) {
+            return interviewRepository.findById(integer);
+        } else {
+            ExceptionHandler.handleException("Interview not found for Id : "+integer);
+        }
+        return null;
     }
 
     @Override
@@ -31,12 +37,11 @@ public class InterviewService implements BaseService<Interview, Integer> {
     }
 
     @Override
-    public void delete(Interview entity) {
-        interviewRepository.delete(entity);
-    }
-
-    @Override
     public void deleteById(Integer integer) {
-        interviewRepository.deleteById(integer);
+        try {
+            interviewRepository.deleteById(integer);
+        } catch (Exception exception) {
+            ExceptionHandler.handleException("Interview not found for Id : " +integer);
+        }
     }
 }

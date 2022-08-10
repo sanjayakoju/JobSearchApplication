@@ -1,11 +1,10 @@
 package com.ea.cs544.jobsearchapplication.service;
 
 import com.ea.cs544.jobsearchapplication.core.BaseService;
+import com.ea.cs544.jobsearchapplication.exception.ExceptionHandler;
+import com.ea.cs544.jobsearchapplication.model.Application;
 import com.ea.cs544.jobsearchapplication.model.Job;
-import com.ea.cs544.jobsearchapplication.repository.ApplicationRepository;
-import com.ea.cs544.jobsearchapplication.repository.InterviewRepository;
-import com.ea.cs544.jobsearchapplication.repository.JobRepository;
-import com.ea.cs544.jobsearchapplication.repository.SkillRepository;
+import com.ea.cs544.jobsearchapplication.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +30,12 @@ public class JobService implements BaseService<Job, Integer> {
 
     @Override
     public Optional<Job> findOne(Integer integer) {
-        return jobRepository.findById(integer);
+        if (jobRepository.findById(integer).isPresent()) {
+            return jobRepository.findById(integer);
+        } else {
+            ExceptionHandler.handleException("Job not found for Id : " + integer);
+        }
+        return null;
     }
 
     @Override
@@ -40,17 +44,22 @@ public class JobService implements BaseService<Job, Integer> {
     }
 
     @Override
-    public void delete(Job entity) {
-        jobRepository.delete(entity);
+    public void deleteById(Integer integer) {
+        try {
+            Job job = jobRepository.findByJobId(integer);
+            Application application = applicationRepository.findApplicationByJob(job);
+            applicationRepository.delete(application);
+            jobRepository.deleteById(integer);
+        } catch (Exception ex) {
+            ExceptionHandler.handleException("Job not found for ID: " + integer);
+        }
     }
 
-    @Override
-    public void deleteById(Integer integer) {
-        jobRepository.deleteById(integer);
-//        try {
-//            jobRepository.deleteById(integer);
-//        } catch (DataAccessException ex) {
-//            ExceptionHandler.handleException("Job not found for ID: " + integer);
-//        }
+    public List<Job> getJobWithSalaryGreaterThanWithinParticularState(double salary, String state) {
+        return jobRepository.findAll(JobSpecification.hasSalaryGreaterThan(salary, state));
+    }
+
+    public List<Job> findAllByInterviews(int numberOfInterview) {
+        return jobRepository.findAllJobWithInterview(numberOfInterview);
     }
 }
