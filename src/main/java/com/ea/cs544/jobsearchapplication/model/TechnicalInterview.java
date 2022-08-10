@@ -2,12 +2,15 @@ package com.ea.cs544.jobsearchapplication.model;
 
 import com.ea.cs544.jobsearchapplication.enums.Location;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
+@DiscriminatorValue("TechnicalInterview")
 public class TechnicalInterview extends Interview {
 
     private String duration;
@@ -19,7 +22,7 @@ public class TechnicalInterview extends Interview {
 
     }
 
-    public TechnicalInterview(LocalDate date, String phoneNumber, String email, String duration, Location location, String questions) {
+    public TechnicalInterview(Date date, String phoneNumber, String email, String duration, Location location, String questions) {
         super(date, phoneNumber, email);
         this.duration = duration;
         this.location = location;

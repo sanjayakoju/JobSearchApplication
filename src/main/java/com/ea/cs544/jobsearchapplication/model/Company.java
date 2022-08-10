@@ -2,6 +2,7 @@ package com.ea.cs544.jobsearchapplication.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)

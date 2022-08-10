@@ -2,12 +2,15 @@ package com.ea.cs544.jobsearchapplication.model;
 
 import com.ea.cs544.jobsearchapplication.enums.InterviewResult;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
+@DiscriminatorValue("ScreeningInterview")
 public class ScreeningInterview extends Interview {
 
     private String name;
@@ -18,7 +21,7 @@ public class ScreeningInterview extends Interview {
 
     }
 
-    public ScreeningInterview(LocalDate date, String phoneNumber, String email, String name, InterviewResult result) {
+    public ScreeningInterview(Date date, String phoneNumber, String email, String name, InterviewResult result) {
         super(date, phoneNumber, email);
         this.name = name;
         this.result = result;

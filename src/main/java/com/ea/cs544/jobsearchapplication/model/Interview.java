@@ -2,16 +2,17 @@ package com.ea.cs544.jobsearchapplication.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "inteview_type")
 public class Interview implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private LocalDate date;
+    private Date date;
     private String phoneNumber;
     private String email;
     @Version
@@ -20,7 +21,7 @@ public class Interview implements Serializable {
     public Interview() {
     }
 
-    public Interview(LocalDate date, String phoneNumber, String email) {
+    public Interview(Date date, String phoneNumber, String email) {
         this.date = date;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -30,11 +31,11 @@ public class Interview implements Serializable {
         return id;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

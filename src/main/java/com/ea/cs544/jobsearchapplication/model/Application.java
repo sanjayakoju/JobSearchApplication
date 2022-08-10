@@ -3,6 +3,7 @@ package com.ea.cs544.jobsearchapplication.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 public class Application implements Serializable {
@@ -10,19 +11,27 @@ public class Application implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private LocalDate date;
+    private Date date;
     @Version
     private long version;
     private double resumeVersion;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Job job;
 
     public Application() {
     }
 
-    public Application(LocalDate date, double resumeVersion, Job job) {
+    public Application(Date date, double resumeVersion, Job job) {
         this.date = date;
         this.resumeVersion = resumeVersion;
+        this.job = job;
+    }
+
+    public Job getJob() {
+        return job;
+    }
+
+    public void setJob(Job job) {
         this.job = job;
     }
 
@@ -30,11 +39,11 @@ public class Application implements Serializable {
         return id;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -46,19 +55,12 @@ public class Application implements Serializable {
         this.resumeVersion = resumeVersion;
     }
 
-    public Job getJob() {
-        return job;
-    }
-
-    public void setJob(Job job) {
-        this.job = job;
-    }
-
     @Override
     public String toString() {
         return "Application{" +
                 "id=" + id +
                 ", date=" + date +
+                ", version=" + version +
                 ", resumeVersion=" + resumeVersion +
                 ", job=" + job +
                 '}';

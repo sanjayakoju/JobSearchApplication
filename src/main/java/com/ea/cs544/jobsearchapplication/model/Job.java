@@ -17,7 +17,7 @@ public class Job implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "job_id")
     private List<Skill> skills;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Company company;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "job_id")
@@ -31,7 +31,6 @@ public class Job implements Serializable {
         this.salary = salary;
         this.skills = skills;
         this.company = company;
-        this.interviews = interviews;
     }
 
     public int getId() {
@@ -84,6 +83,7 @@ public class Job implements Serializable {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", salary=" + salary +
+                ", version=" + version +
                 ", skills=" + skills +
                 ", company=" + company +
                 ", interviews=" + interviews +

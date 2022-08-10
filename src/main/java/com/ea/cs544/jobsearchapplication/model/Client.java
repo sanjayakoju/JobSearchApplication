@@ -16,6 +16,10 @@ public class Client extends Company implements Serializable {
     @Version
     private long version;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "recruiter_id")
+    private Recruiter recruiter;
+
     public Client() {
     }
 
@@ -53,6 +57,14 @@ public class Client extends Company implements Serializable {
         this.website = website;
     }
 
+    public Recruiter getRecruiter() {
+        return recruiter;
+    }
+
+    public void setRecruiter(Recruiter recruiter) {
+        this.recruiter = recruiter;
+    }
+
     @Override
     public String toString() {
         return "Client{" +
@@ -60,7 +72,8 @@ public class Client extends Company implements Serializable {
                 ", mission='" + mission + '\'' +
                 ", reason='" + reason + '\'' +
                 ", website='" + website + '\'' +
-                ", address=" + address +
+                ", version=" + version +
+                ", recruiter=" + recruiter +
                 '}';
     }
 }

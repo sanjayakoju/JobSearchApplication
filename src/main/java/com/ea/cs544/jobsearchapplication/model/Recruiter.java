@@ -13,7 +13,7 @@ public class Recruiter extends Company implements Serializable {
     private int id;
     @Version
     private long version;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recruiter", cascade = CascadeType.ALL)
     private List<Client> clients;
 
     public Recruiter() {

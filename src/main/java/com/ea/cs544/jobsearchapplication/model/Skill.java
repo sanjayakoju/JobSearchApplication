@@ -10,7 +10,7 @@ public class Skill implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private String experience;
+    private int experience;
     private String language;
     private String description;
     @Version
@@ -19,7 +19,7 @@ public class Skill implements Serializable {
     public Skill() {
     }
 
-    public Skill(String name, String experience, String language, String description) {
+    public Skill(String name, int experience, String language, String description) {
         this.name = name;
         this.experience = experience;
         this.language = language;
@@ -38,11 +38,11 @@ public class Skill implements Serializable {
         this.name = name;
     }
 
-    public String getExperience() {
+    public int getExperience() {
         return experience;
     }
 
-    public void setExperience(String experience) {
+    public void setExperience(int experience) {
         this.experience = experience;
     }
 

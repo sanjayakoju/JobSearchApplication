@@ -1,9 +1,11 @@
 package com.ea.cs544.jobsearchapplication.model;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.time.LocalDate;
 
 @Entity
+@DiscriminatorValue("HiringManagerInterview")
 public class HiringManagerInterview extends Interview {
 
     private int teamSize;
