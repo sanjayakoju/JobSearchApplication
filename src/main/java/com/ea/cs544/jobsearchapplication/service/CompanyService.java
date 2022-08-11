@@ -39,11 +39,8 @@ public class CompanyService implements BaseService<Company, Integer> {
 
     @Override
     public void deleteById(Integer integer) {
-        try {
+
             companyRepository.deleteById(integer);
-        } catch (Exception exception) {
-            ExceptionHandler.handleException("Company not found for Id : " + integer);
-        }
     }
 
     public List<Company> findAllByState(String state) {

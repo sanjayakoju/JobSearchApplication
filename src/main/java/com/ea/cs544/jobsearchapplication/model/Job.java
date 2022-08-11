@@ -9,7 +9,7 @@ public class Job implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String title;
     private double salary;
     @Version
@@ -33,7 +33,11 @@ public class Job implements Serializable {
         this.company = company;
     }
 
-    public int getId() {
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
         return id;
     }
 

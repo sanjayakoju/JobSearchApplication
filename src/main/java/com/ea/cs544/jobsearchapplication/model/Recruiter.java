@@ -10,7 +10,7 @@ public class Recruiter extends Company implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     @Version
     private long version;
     @OneToMany(mappedBy = "recruiter", cascade = CascadeType.ALL)
@@ -22,6 +22,15 @@ public class Recruiter extends Company implements Serializable {
     public Recruiter(String name, Address address, List<Client> clients) {
         super(name, address);
         this.clients = clients;
+    }
+
+    @Override
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public List<Client> getClients() {

@@ -9,7 +9,7 @@ public class Client extends Company implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String mission;
     private String reason;
     private String website;
@@ -29,7 +29,8 @@ public class Client extends Company implements Serializable {
         this.website = website;
     }
 
-    public int getId() {
+    @Override
+    public Integer getId() {
         return id;
     }
 

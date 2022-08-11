@@ -41,14 +41,10 @@ public class SkillServiceTest {
     @MockBean
     private SkillRepository skillRepository;
 
-
-
-
     @Test
     public void saveSkill() {
         skill = new Skill(1,"Software Developer", 5, "JAVA", "FullStack Java Developer");
         skillService.save(skill);
-
         verify(skillRepository, times(1)).save(skill);
     }
 
@@ -58,7 +54,6 @@ public class SkillServiceTest {
         int skillId = 1;
         skill = new Skill(1,"Software Developer", 5, "JAVA", "FullStack Java Developer");
         Optional<Skill> javaOptional = Optional.of(skill);
-
         Mockito.when(skillRepository.findById(skillId)).thenReturn(javaOptional);
     }
 
@@ -66,23 +61,17 @@ public class SkillServiceTest {
     public void skillById() {
         int skillId = 1;
         Optional<Skill> skillFound = skillService.findOne(skillId);
-
         Skill skill = skillFound.get();
-
         assertThat(skill.getId()).isEqualTo(skillId);
     }
 
     @Test
     public void getAllSkill() {
         Skill skill = new Skill(1,"Software Developer", 3, "JAVA", "FullStack Java Developer");
-
         skillService.save(skill);
-
         given(skillRepository.findAll()).willReturn(Collections.emptyList());
-
         // when -  action or the behaviour that we are going test
         List<Skill> skillList = skillService.findAll();
-
         // then - verify the output
         assertThat(skillList).isEmpty();
         assertThat(skillList.size()).isEqualTo(0);
@@ -91,24 +80,18 @@ public class SkillServiceTest {
     @Test
     public void deleteSkill() {
         int id = 1;
-
         willDoNothing().given(skillRepository).deleteById(id);
-
         skillService.deleteById(id);
-
         verify(skillRepository, times(1)).deleteById(id);
     }
 
     @Test
     public void updateSkill() {
         Skill skill = new Skill(1,"Software Developer", 3, "JAVA", "FullStack Java Developer");
-
         given(skillRepository.save(skill)).willReturn(skill);
         skill.setLanguage("JavaScript");
         skill.setExperience(6);
-
         Skill updatedSkill = skillService.save(skill);
-
         assertThat(updatedSkill.getExperience()).isEqualTo(6);
         assertThat(updatedSkill.getLanguage()).isEqualTo("JavaScript");
     }

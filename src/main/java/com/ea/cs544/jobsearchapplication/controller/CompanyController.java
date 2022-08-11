@@ -1,6 +1,8 @@
 package com.ea.cs544.jobsearchapplication.controller;
 
+import com.ea.cs544.jobsearchapplication.model.Client;
 import com.ea.cs544.jobsearchapplication.model.Company;
+import com.ea.cs544.jobsearchapplication.model.Recruiter;
 import com.ea.cs544.jobsearchapplication.service.CompanyService;
 import com.ea.cs544.jobsearchapplication.util.RestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +18,14 @@ public class CompanyController {
     @Autowired
     CompanyService companyService;
 
-    @PostMapping
-    public ResponseEntity<?> save(@RequestBody Company company) {
-        return new RestResponse().successModel(companyService.save(company));
+    @PostMapping("/recruiter")
+    public ResponseEntity<?> saveRecruiter(@RequestBody Recruiter recruiter) {
+        return new RestResponse().successModel(companyService.save(recruiter));
+    }
+
+    @PostMapping("/client")
+    public ResponseEntity<?> saveClient(@RequestBody Client client) {
+        return new RestResponse().successModel(companyService.save(client));
     }
 
     @GetMapping("/{id}")

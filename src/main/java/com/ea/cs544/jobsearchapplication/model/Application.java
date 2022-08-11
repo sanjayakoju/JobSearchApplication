@@ -10,7 +10,7 @@ public class Application implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private Date date;
     @Version
     private long version;
@@ -21,10 +21,15 @@ public class Application implements Serializable {
     public Application() {
     }
 
-    public Application(Date date, double resumeVersion, Job job) {
+    public Application(Integer id, Date date, double resumeVersion, Job job) {
+        this.id = id;
         this.date = date;
         this.resumeVersion = resumeVersion;
         this.job = job;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Job getJob() {
@@ -35,7 +40,7 @@ public class Application implements Serializable {
         this.job = job;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

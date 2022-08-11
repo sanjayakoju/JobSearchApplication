@@ -45,4 +45,8 @@ public class ApplicationService implements BaseService<Application, Integer> {
             ExceptionHandler.handleException("Application not found for Id: "+integer);
         }
     }
+
+//    public List<Application> findAllApllicationWhoPassScreeningInterview() {
+//        return applicationRepository.findAllApplicationWhoPassedScreeningInterview();
+//    }
 }

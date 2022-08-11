@@ -43,4 +43,9 @@ public class ApplicationController {
         return new RestResponse().successModel(application);
     }
 
+//    @GetMapping("/screeningInterview/pass")
+//    public ResponseEntity<?> getAllScreeningInterviewPassApplication() {
+//        return new RestResponse().successModel(applicationService.findAllApllicationWhoPassScreeningInterview());
+//    }
+
 }

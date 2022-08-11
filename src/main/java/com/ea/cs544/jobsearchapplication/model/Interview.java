@@ -11,7 +11,7 @@ public class Interview implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private Date date;
     private String phoneNumber;
     private String email;
@@ -27,7 +27,11 @@ public class Interview implements Serializable {
         this.email = email;
     }
 
-    public int getId() {
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
         return id;
     }
 

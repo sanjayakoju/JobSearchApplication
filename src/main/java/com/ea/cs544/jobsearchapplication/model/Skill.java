@@ -8,7 +8,7 @@ public class Skill implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
     private int experience;
     private String language;
@@ -34,7 +34,7 @@ public class Skill implements Serializable {
         this.description = description;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
