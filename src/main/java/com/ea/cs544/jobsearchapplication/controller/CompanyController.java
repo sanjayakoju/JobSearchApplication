@@ -18,15 +18,20 @@ public class CompanyController {
     @Autowired
     CompanyService companyService;
 
-    @PostMapping("/recruiter")
-    public ResponseEntity<?> saveRecruiter(@RequestBody Recruiter recruiter) {
+    @PostMapping()
+    public ResponseEntity<?> saveRecruiter(@RequestBody Company recruiter) {
         return new RestResponse().successModel(companyService.save(recruiter));
     }
 
-    @PostMapping("/client")
-    public ResponseEntity<?> saveClient(@RequestBody Client client) {
-        return new RestResponse().successModel(companyService.save(client));
-    }
+//    @PostMapping("/recruiter")
+//    public ResponseEntity<?> saveRecruiter(@RequestBody Recruiter recruiter) {
+//        return new RestResponse().successModel(companyService.save(recruiter));
+//    }
+//
+//    @PostMapping("/client")
+//    public ResponseEntity<?> saveClient(@RequestBody Client client) {
+//        return new RestResponse().successModel(companyService.save(client));
+//    }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable int id) {

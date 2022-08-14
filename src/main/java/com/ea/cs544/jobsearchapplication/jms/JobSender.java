@@ -20,15 +20,15 @@ public class JobSender {
     @Value(value = "${spring.jms.cs544Queue}")
     private String queueName;
 
-    public void send(Job job) {
-        MessageCreator messageCreator = new MessageCreator() {
-            @Override
-            public Message createMessage(Session session) throws JMSException {
-                return session.createObjectMessage(job);
-            }
-        };
-        jmsTemplate.send(queueName, messageCreator);
-    }
+//    public void send(Job job) {
+//        MessageCreator messageCreator = new MessageCreator() {
+//            @Override
+//            public Message createMessage(Session session) throws JMSException {
+//                return session.createObjectMessage(job);
+//            }
+//        };
+//        jmsTemplate.send(queueName, messageCreator);
+//    }
 
     public void send(String message) {
         jmsTemplate.convertAndSend(queueName, message);

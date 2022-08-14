@@ -21,7 +21,7 @@ public class JobController {
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody Job job) {
-        jobSender.send(job);
+        jobSender.send("Job Save message send");
         return new RestResponse().successModel(jobService.save(job));
     }
 
@@ -45,9 +45,9 @@ public class JobController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable int id) {
+        jobSender.send("Job delete Message Send for id : "+id);
         Optional<Job> job = jobService.findOne(id);
         jobService.deleteById(id);
-        jobSender.send("Job delete Message Send for id : "+id);
         return new RestResponse().successModel(job);
     }
 

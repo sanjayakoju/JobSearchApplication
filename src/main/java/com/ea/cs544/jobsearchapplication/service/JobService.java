@@ -3,6 +3,7 @@ package com.ea.cs544.jobsearchapplication.service;
 import com.ea.cs544.jobsearchapplication.core.BaseService;
 import com.ea.cs544.jobsearchapplication.exception.ExceptionHandler;
 import com.ea.cs544.jobsearchapplication.model.Application;
+import com.ea.cs544.jobsearchapplication.model.Interview;
 import com.ea.cs544.jobsearchapplication.model.Job;
 import com.ea.cs544.jobsearchapplication.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +48,13 @@ public class JobService implements BaseService<Job, Integer> {
     public void deleteById(Integer integer) {
         try {
             Job job = jobRepository.findByJobId(integer);
-            Application application = applicationRepository.findApplicationByJob(job);
-            applicationRepository.delete(application);
-            jobRepository.deleteById(integer);
+            if (job != null) {
+                Application application = applicationRepository.findApplicationByJob(job);
+                applicationRepository.delete(application);
+                jobRepository.deleteById(integer);
+            }
         } catch (Exception ex) {
+            System.out.println(ex);
             ExceptionHandler.handleException("Job not found for ID: " + integer);
         }
     }

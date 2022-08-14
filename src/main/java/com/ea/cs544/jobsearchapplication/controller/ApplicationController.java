@@ -1,5 +1,6 @@
 package com.ea.cs544.jobsearchapplication.controller;
 
+import com.ea.cs544.jobsearchapplication.enums.InterviewResult;
 import com.ea.cs544.jobsearchapplication.model.Application;
 import com.ea.cs544.jobsearchapplication.service.ApplicationService;
 import com.ea.cs544.jobsearchapplication.util.RestResponse;
@@ -43,9 +44,9 @@ public class ApplicationController {
         return new RestResponse().successModel(application);
     }
 
-//    @GetMapping("/screeningInterview/pass")
-//    public ResponseEntity<?> getAllScreeningInterviewPassApplication() {
-//        return new RestResponse().successModel(applicationService.findAllApllicationWhoPassScreeningInterview());
-//    }
+    @GetMapping("/screeningInterview")
+    public ResponseEntity<?> getAllScreeningInterviewResultTypeOfApplication(@RequestParam InterviewResult interviewResult) {
+        return new RestResponse().successModel(applicationService.findAllInterviewPassApplication(interviewResult));
+    }
 
 }

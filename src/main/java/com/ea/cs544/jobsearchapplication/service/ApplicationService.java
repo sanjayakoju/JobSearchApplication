@@ -1,6 +1,7 @@
 package com.ea.cs544.jobsearchapplication.service;
 
 import com.ea.cs544.jobsearchapplication.core.BaseService;
+import com.ea.cs544.jobsearchapplication.enums.InterviewResult;
 import com.ea.cs544.jobsearchapplication.exception.ExceptionHandler;
 import com.ea.cs544.jobsearchapplication.model.Application;
 import com.ea.cs544.jobsearchapplication.repository.ApplicationRepository;
@@ -41,12 +42,13 @@ public class ApplicationService implements BaseService<Application, Integer> {
     public void deleteById(Integer integer) {
         try {
             applicationRepository.deleteById(integer);
-        } catch (EntityNotFoundException ex) {
+        } catch (Exception ex) {
+            System.out.println(ex);
             ExceptionHandler.handleException("Application not found for Id: "+integer);
         }
     }
 
-//    public List<Application> findAllApllicationWhoPassScreeningInterview() {
-//        return applicationRepository.findAllApplicationWhoPassedScreeningInterview();
-//    }
+    public List<Application> findAllInterviewPassApplication(InterviewResult interviewResult) {
+        return applicationRepository.findAllInterviewPassApplication(String.valueOf(interviewResult));
+    }
 }

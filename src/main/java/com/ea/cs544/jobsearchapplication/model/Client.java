@@ -7,9 +7,6 @@ import java.io.Serializable;
 @DiscriminatorValue("client")
 public class Client extends Company implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
     private String mission;
     private String reason;
     private String website;
@@ -17,7 +14,6 @@ public class Client extends Company implements Serializable {
     private long version;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "recruiter_id")
     private Recruiter recruiter;
 
     public Client() {
@@ -29,10 +25,6 @@ public class Client extends Company implements Serializable {
         this.website = website;
     }
 
-    @Override
-    public Integer getId() {
-        return id;
-    }
 
     public String getMission() {
         return mission;
@@ -69,8 +61,7 @@ public class Client extends Company implements Serializable {
     @Override
     public String toString() {
         return "Client{" +
-                "id=" + id +
-                ", mission='" + mission + '\'' +
+                "mission='" + mission + '\'' +
                 ", reason='" + reason + '\'' +
                 ", website='" + website + '\'' +
                 ", version=" + version +
