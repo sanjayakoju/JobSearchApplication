@@ -11,8 +11,9 @@ import java.util.List;
 public interface InterviewRepository extends JpaRepository<Interview, Integer> {
 
     @Query(value = "Delete from Interview where job_id = ?1", nativeQuery = true)
-    void deleteAllByJobId(int id);
+    void deleteAllByJobId(Integer id);
 
     @Query(value = "SELECT * from interview where job_id = ?1", nativeQuery = true)
     List<Interview> findAllByJobId(int id);
+
 }

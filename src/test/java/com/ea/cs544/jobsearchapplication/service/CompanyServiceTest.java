@@ -44,7 +44,6 @@ public class CompanyServiceTest {
         clients.add(client1);
 
         Recruiter kForce = new Recruiter();
-        kForce.setId(1);
         kForce.setName("KForce");
         kForce.setAddress(new Address("100A 4th st","Ottumwa", "IOWA", "52657"));
         kForce.setClients(clients);

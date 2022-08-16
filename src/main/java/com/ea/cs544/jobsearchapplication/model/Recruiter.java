@@ -8,12 +8,10 @@ import java.util.List;
 @DiscriminatorValue("recruiter")
 public class Recruiter extends Company implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+
     @Version
     private long version;
-    @OneToMany(mappedBy = "recruiter", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Client> clients;
 
     public Recruiter() {
@@ -24,14 +22,6 @@ public class Recruiter extends Company implements Serializable {
         this.clients = clients;
     }
 
-    @Override
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public List<Client> getClients() {
         return clients;
@@ -44,7 +34,6 @@ public class Recruiter extends Company implements Serializable {
     @Override
     public String toString() {
         return "Recruiter{" +
-                "id=" + id +
                 ", clients=" + clients +
                 ", address=" + address +
                 '}';
